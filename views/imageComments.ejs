@@ -1,0 +1,43 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <div class="m-auto">
+                    <a href="<%= mainRoute %>/main/index" class="btn btn-secondary">Back</a>
+                </div>
+                <div class="card col-12 mb-3">
+                    <img src="<%= mainRoute %>/main/images/<%= file.filename %>" alt="" class="col-md-8 m-auto">
+                </div>
+                <%- include('./partials/messages') %>
+                <form action="<%= mainRoute %>/main/files/<%= file._id %>" method="POST">
+                    <div class="form-group mb-3">
+                        <label for="comment">Care to share an opinion</label>
+                        <input type="text" id="comment" name="comment" class="form-control"
+                            placeholder="Add Comment..." />
+                    </div>
+                    <button type="submit" value="Submit" class="btn btn-primary col-12">Submit</button>
+                </form>
+                <hr>
+                <% if(comments){ %>
+                <% comments.forEach(function(com){ %>
+                <div class="card card-body mb-3">
+                    <p><%= com.createdByName %></p>
+                    <p><%= com.text %></p>
+                    <% if (userID.toString() === com.createdById.toString()) { %>
+                        <form method="POST" action="<%= mainRoute %>/main/files/<%= com.gfsImageId %>?_method=DELETE" >
+                            <button class="btn btn-danger btn-block col-12">Delete</button>
+                        </form>
+                    <% } %>
+                </div>  
+                <% }) %>
+                <% }else { %>
+                <p>No comments to show</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
